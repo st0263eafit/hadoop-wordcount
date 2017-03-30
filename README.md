@@ -1,9 +1,10 @@
 # Laboratorio Hadoop
-Universidad EAFIT
-ST0263: Tópicos Especiales en Telemática, 2017-1
-Profesor: Edwin Montoya – emontoya@eafit.edu.co
+* Universidad EAFIT
+* ST0263: Tópicos Especiales en Telemática, 2017-1
+* Profesor: Edwin Montoya – emontoya@eafit.edu.co
 
 # 1. Gestión de archivos en HDFS
+
 Una vez montado el cluster propio, o utilizando el cluster de producción del DIS (10.131.137.188), con su user y pass de la VPN, realizar:
 
 ## Obtener un subconjunto de datos de prueba, de Gutenberg Digital Library
@@ -12,23 +13,25 @@ Puede descargar datos directamente del sitio:
 
 Comando:
 
-$ wget -w 2 -m -H "http://www.gutenberg.org/robot/harvest?filetypes[]=txt&langs[]=es"
+    $ wget -w 2 -m -H "http://www.gutenberg.org/robot/harvest?filetypes[]=txt&langs[]=es"
+
 asi, los descarga en formato .zip, uds los deben descomprimir antes de enviarlos al HDFS
 
 Puede utilizar datos previamente descargados:
-Link (https://drive.google.com/open?id=0B_4oKjh0Qca5UGxTU3VBNmtxYms )
+
+Link (https://github.com/st0263eafit/hadoop-wordcount/blob/master/datasets/gutenberg-txt-es.zip)
 
 ## Listar archivos HDFS
 
-$ hdfs dfs -ls /
-$ hdfs dfs -ls /user
-$ hdfs dfs -ls /datasets
+    $ hdfs dfs -ls /
+    $ hdfs dfs -ls /user
+    $ hdfs dfs -ls /datasets
 
 ## Crear tu propio directorio de usuario en HDFS
 
-$ hdfs dfs -mkdir /user/st0263/username
-$ hdfs dfs -mkdir /user/st0263/username/data_in
-$ hdfs dfs -mkdir /user/st0263/username/data_out
+    $ hdfs dfs -mkdir /user/st0263/username
+    $ hdfs dfs -mkdir /user/st0263/username/data_in
+    $ hdfs dfs -mkdir /user/st0263/username/data_out
 
 reemplace “username” por su usuario asignado.
 
@@ -36,40 +39,41 @@ reemplace “username” por su usuario asignado.
 
 Se asume que tiene los datos de gutenberg en: ~username/datasets/gutenberg-txt-es o donde los haya descargado.
 
-$ hdfs dfs -copyFromLocal ~username/datasets/gutenberg-txt-es/*.txt /user/st0263/username/data_in
+    $ hdfs dfs -copyFromLocal ~username/datasets/gutenberg-txt-es/*.txt /user/st0263/username/data_in
+
 otro commando para copier:
 
-$ hdfs dfs -put ~username/datasets/gutenberg-txt-es/*.txt /user/st0263/username/data_in
+    $ hdfs dfs -put ~username/datasets/gutenberg-txt-es/*.txt /user/st0263/username/data_in
 
-$ hdfs dfs -ls /user/st0263/username/data_in
+    $ hdfs dfs -ls /user/st0263/username/data_in
 
 ## Copiar archivos de HDFS hacia local
 
-$ hdfs dfs -copyToLocal /user/st0263/username/data_out/out1/* ~username/data_out
+    $ hdfs dfs -copyToLocal /user/st0263/username/data_out/out1/* ~username/data_out
 
 otro comando para traer:
 
-$ hdfs dfs -get /user/st0263/username/data_out/out1/* ~username/data_out
+    $ hdfs dfs -get /user/st0263/username/data_out/out1/* ~username/data_out
 
-$ ls -l data_out/out1
+    $ ls -l data_out/out1
 
 ## Probar otros commandos
 
 Se aplica los siguientes comandos a:
 
-$ hdfs dfs -<command>
+    $ hdfs dfs -<command>
 
 comandos:
 
-du <path>                  uso de disco en bytes
-mv <src> <dest>       mover archive(s)
-cp <src> <dest>        copiar archivo(s)
-rm <path>                 borrar archive(s)
-put <localSrc> <dest-hdfs> copiar local a hdfs
-cat <file-name>         mostrar contenido de archivo
-chmod [-R] mode      cambiar los permisos de un archivo
-chown …                   cambiar el dueño de un archivo
-chgrp                         cambiar el grupo de un archivo
+    du <path>                  uso de disco en bytes
+    mv <src> <dest>       mover archive(s)
+    cp <src> <dest>        copiar archivo(s)
+    rm <path>                 borrar archive(s)
+    put <localSrc> <dest-hdfs> copiar local a hdfs
+    cat <file-name>         mostrar contenido de archivo
+    chmod [-R] mode      cambiar los permisos de un archivo
+    chown …                   cambiar el dueño de un archivo
+    chgrp                         cambiar el grupo de un archivo
 
 # 2. PROGRAMACIÓN EN YARN-MAP/REDUCE
 
@@ -85,13 +89,13 @@ Se tiene el programa ejemplo: WordCount.java, el cual despues de compilarse en l
 
 El código fuente de WordCount.java, script de generación de jar e instrucciones esta en:
 
-https://drive.google.com/open?id=0B_4oKjh0Qca5ZHI0WEJGenRZZnM
+    https://github.com/st0263eafit/hadoop-wordcount
 
 Descargarlo, compilarlo y generar el jar (wc.jar)
 
 ### Para ejecutar:
 
-$ hadoop jar wc.jar WordCount /datasets/gutenberg/es/10814.txt /user/st0263/username/data_out/out1
+    $ hadoop jar wc.jar WordCount /datasets/gutenberg/es/10814.txt /user/st0263/username/data_out/out1
 
 el comando hadoop se este abandonando por yarn:
 
@@ -133,7 +137,7 @@ wc-mrjob.py
 
 ### EJECURARLO:
 
-$ python wordcount.py hdfs:///datasets/gutenberg/es/1*.txt -r hadoop --output-dir hdfs:///user/st0263/username/data_out/out1
+    $ python wordcount.py hdfs:///datasets/gutenberg/es/1*.txt -r hadoop --output-dir hdfs:///user/st0263/username/data_out/out1
 
 (el directorio /user/st0263/username/data_out/out1 no debe existir)
 
