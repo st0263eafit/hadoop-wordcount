@@ -65,15 +65,15 @@ Se aplica los siguientes comandos a:
 
 comandos:
 
-    du <path>                  uso de disco en bytes
-    mv <src> <dest>       mover archive(s)
-    cp <src> <dest>        copiar archivo(s)
-    rm <path>                 borrar archive(s)
+    du <path>         uso de disco en bytes
+    mv <src> <dest>   mover archive(s)
+    cp <src> <dest>   copiar archivo(s)
+    rm <path>         borrar archive(s)
     put <localSrc> <dest-hdfs> copiar local a hdfs
-    cat <file-name>         mostrar contenido de archivo
-    chmod [-R] mode      cambiar los permisos de un archivo
-    chown …                   cambiar el dueño de un archivo
-    chgrp                         cambiar el grupo de un archivo
+    cat <file-name>   mostrar contenido de archivo
+    chmod [-R] mode   cambiar los permisos de un archivo
+    chown …           cambiar el dueño de un archivo
+    chgrp             cambiar el grupo de un archivo
 
 # 2. PROGRAMACIÓN EN YARN-MAP/REDUCE
 
