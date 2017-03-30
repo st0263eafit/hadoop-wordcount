@@ -19,7 +19,7 @@ asi, los descarga en formato .zip, uds los deben descomprimir antes de enviarlos
 
 Puede utilizar datos previamente descargados:
 
-Link (https://github.com/st0263eafit/hadoop-wordcount/blob/master/datasets/gutenberg-txt-es.zip)
+Link (https://github.com/st0263eafit/hadoop-wordcount/raw/master/datasets/gutenberg-txt-es.zip)
 
 ## Listar archivos HDFS
 
